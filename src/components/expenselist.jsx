@@ -2,8 +2,31 @@ import React, { Component } from "react";
 import ExpenseName from "./expensename";
 import ExpenseYouPaid from "./expenseyoupaid";
 import ExpenseYouLent from "./expenseyoulent";
+import AddGroup from "../addgroupcontroller";
 
 class ExpenseList extends Component {
+  deleteExpense(currentExpense, grpExpense) {
+    let lent = currentExpense["youLent_" + this.props.id];
+    let totalOwed = grpExpense.owed;
+    let grpFriends = grpExpense.friends_name;
+    let memCount = grpExpense.members_count;
+    totalOwed -= lent;
+    let perLent = (lent / memCount).toFixed(2);
+
+    for (let i = 0; i < grpFriends.length; i++) {
+      grpFriends[i]["owes_" + i] -= perLent;
+    }
+
+    AddGroup.deleteGrpExpense(
+      totalOwed,
+      grpFriends,
+      currentExpense,
+      grpExpense,
+      this.props.id,
+      () => alert("Expense Deleted!")
+    );
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -43,7 +66,18 @@ class ExpenseList extends Component {
             />
           </div>
           <div className="delete_actions">
-            <a /*href="www.splitwise.com"*/ className="delete">x</a>
+            <a
+              href="/dashboard"
+              className="delete"
+              onClick={() =>
+                this.deleteExpense(
+                  this.props.current_expense_data,
+                  this.props.current_group_data
+                )
+              }
+            >
+              x
+            </a>
           </div>
         </div>
       </React.Fragment>

@@ -36,6 +36,7 @@ class CenterPanel extends Component {
         <ExpenseList
           key={i}
           id={i}
+          current_group_data={this.state.current_group_data}
           current_expense_data={this.state.current_group_data.expenses[i]}
         />
       );

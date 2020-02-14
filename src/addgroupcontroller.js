@@ -38,12 +38,58 @@ class AddGroup {
       let grp = groupsData.filter(g => g.group_name === currentGrpName);
       return grp[0];
     }
-
     return groupsData[1];
   }
 
   setCurrentGrpSwitch(group_name) {
     sessionStorage.setItem("current_grp_switch", group_name);
+  }
+
+  deleteGrpExpense(
+    totalOwed,
+    grpFriends,
+    currentExpense,
+    grpExpense,
+    id,
+    callback
+  ) {
+    let grps = JSON.parse(localStorage.getItem("Groups"));
+    let uptExpLen = 0;
+
+    for (let i = 0; i < grps.length; i++) {
+      if (grps[i].group_name === grpExpense.group_name) {
+        grps[i].owed = totalOwed;
+        grps[i].friends_name = grpFriends;
+        let updatedExpenses = grpExpense.expenses.filter(
+          (expense, index) =>
+            expense["expense_" + index] !== currentExpense["expense_" + id]
+        );
+
+        uptExpLen = updatedExpenses.length;
+        let refineUpdatedExpense = [];
+        let idxI = 0;
+        let idxJ = 0;
+        let exp = {};
+        while (idxI < uptExpLen) {
+          if (updatedExpenses[idxI]["expense_" + idxJ] !== undefined) {
+            exp["expense_" + idxI] = updatedExpenses[idxI]["expense_" + idxJ];
+            exp["youPaid_" + idxI] = updatedExpenses[idxI]["youPaid_" + idxJ];
+            exp["youLent_" + idxI] = updatedExpenses[idxI]["youLent_" + idxJ];
+            exp["onMonth"] = updatedExpenses[idxI]["onMonth"];
+            exp["onDate"] = updatedExpenses[idxI]["onDate"];
+            idxI++;
+            refineUpdatedExpense.push(exp);
+            exp = {};
+          }
+          idxJ++;
+        }
+
+        grps[i].expenses = refineUpdatedExpense;
+        break;
+      }
+    }
+    localStorage.setItem("Groups", JSON.stringify(grps));
+    callback();
   }
 }
 

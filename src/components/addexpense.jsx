@@ -28,7 +28,9 @@ class AddExpense extends Component {
     let expenseName = this.refs.description.value;
     let totalAmount = this.refs.amount.value;
     let { members_count } = this.props.current_data;
-    let amountPerHead = (totalAmount / (Number(members_count) + 1)).toFixed(2);
+    let amountPerHead = Number(
+      (Number(totalAmount) / (Number(members_count) + 1)).toFixed(2)
+    );
     console.log(amountPerHead);
     let updateCurrentData = this.props.current_data;
     console.log(this.props.current_data);
@@ -40,7 +42,7 @@ class AddExpense extends Component {
     newExpense["onDate"] = new Date().getDate();
     updateCurrentData.expenses.push(newExpense);
     for (var i = 0; i < updateCurrentData.friends_name.length; i++) {
-      updateCurrentData.friends_name[i]["owes_" + i] += Number(amountPerHead);
+      updateCurrentData.friends_name[i]["owes_" + i] += amountPerHead;
     }
     //console.log(updateCurrentData.friends_name);
 

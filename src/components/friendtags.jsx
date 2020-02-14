@@ -4,7 +4,7 @@ class FriendName extends Component {
   render() {
     return (
       <div>
-        <a href="www.splitwise.com" className="group_name">
+        <a /*href="www.splitwise.com"*/ className="group_name">
           <i className="fa fa-user"></i> {this.props.current_grp_frnds}
         </a>
       </div>
