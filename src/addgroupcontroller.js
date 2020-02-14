@@ -33,12 +33,13 @@ class AddGroup {
 
   getCurrentGrpSwitch() {
     let groupsData = JSON.parse(localStorage.getItem("Groups"));
+    if (groupsData === null) return false;
     let currentGrpName = sessionStorage.getItem("current_grp_switch");
     if (currentGrpName) {
       let grp = groupsData.filter(g => g.group_name === currentGrpName);
       return grp[0];
     }
-    return groupsData[1];
+    return groupsData[0];
   }
 
   setCurrentGrpSwitch(group_name) {

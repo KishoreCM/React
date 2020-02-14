@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import LeftPanel from "./leftpanel";
 import RightPanel from "./rightpanel";
 import AddExpense from "./addexpense";
-import Settleup from "./settleup";
+//import Settleup from "./settleup";
 import AddGroup from "../addgroupcontroller";
 import ExpenseList from "./expenselist";
+import { Redirect } from "react-router-dom";
 
 class CenterPanel extends Component {
   state = {
@@ -46,6 +47,11 @@ class CenterPanel extends Component {
   };
 
   render() {
+    if (!AddGroup.getCurrentGrpSwitch()) {
+      alert("You haven't created any group yet...");
+      return <Redirect to="/addgroup" />;
+    }
+
     return (
       <React.Fragment>
         <div id="centerpanel">
@@ -64,12 +70,12 @@ class CenterPanel extends Component {
                 >
                   Add an expense
                 </button>
-                <button
+                {/*<button
                   className="button settleup"
                   onClick={() => this.setSettleupModalShow(true)}
                 >
                   Settle up
-                </button>
+                </button>*/}
               </div>
             </div>
             <div id="expenses">
@@ -101,10 +107,10 @@ class CenterPanel extends Component {
           group_name={this.state.current_group_data.group_name}
           current_data={this.state.current_group_data}
         />
-        <Settleup
+        {/*<Settleup
           show={this.state.showSettleupModal}
           onHide={() => this.setSettleupModalShow(false)}
-        />
+        />*/}
       </React.Fragment>
     );
   }

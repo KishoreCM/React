@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Navbar from "./navbar";
 import CenterPanel from "./centerpanel";
 import AddExpense from "./addexpense";
-import Settleup from "./settleup";
+//import Settleup from "./settleup";
 //import auth from "../auth";
 
 class DashBoard extends Component {
@@ -17,7 +17,7 @@ class DashBoard extends Component {
         </div>
 
         <AddExpense />
-        <Settleup />
+        {/*<Settleup />*/}
       </div>
     );
   }
