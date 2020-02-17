@@ -9,10 +9,10 @@ class Auth {
     callback();
   }
 
-  logout(callback) {
+  logout() {
     //this.authenticated = false;
     sessionStorage.removeItem("LoggedInUser");
-    callback();
+    //callback();
   }
 
   isAuthenticated() {

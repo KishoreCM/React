@@ -1,7 +1,13 @@
 import React, { Component } from "react";
+import { DropdownButton, Dropdown } from "react-bootstrap";
+import AddGroup from "../addgroupcontroller";
+import auth from "../auth";
 
 class Navbar extends Component {
-  state = {};
+  getUserName() {
+    return AddGroup.getUserName();
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -14,10 +20,15 @@ class Navbar extends Component {
                 alt=""
               />
             </div>
-            <div className="userName">
+            {/*<div className="userName">
               Kishore Raj<b className="caret"></b>
-            </div>
+            </div>*/}
           </div>
+          <DropdownButton id="dropdown-basic-button" title={this.getUserName()}>
+            <Dropdown.Item href="/login" onClick={() => auth.logout()}>
+              Logout
+            </Dropdown.Item>
+          </DropdownButton>
         </div>
         {/*
         <div>

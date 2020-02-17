@@ -1,4 +1,8 @@
 class AddGroup {
+  getUserName() {
+    return sessionStorage.getItem("LoggedInUser");
+  }
+
   createGroup(group, callback) {
     let anyGroup = localStorage.getItem("Groups");
     if (anyGroup) {
