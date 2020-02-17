@@ -49,8 +49,10 @@ class AddExpense extends Component {
     //console.log(updateCurrentData.friends_name);
 
     updateCurrentData.owed = Number(
-      Number(updateCurrentData.owed) +
+      (
+        Number(updateCurrentData.owed) +
         Number((totalAmount - amountPerHead).toFixed(2))
+      ).toFixed(2)
     );
 
     //this.setState({ current_data: updateCurrentData });
