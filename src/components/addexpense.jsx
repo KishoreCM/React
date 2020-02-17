@@ -31,13 +31,15 @@ class AddExpense extends Component {
     let amountPerHead = Number(
       (Number(totalAmount) / (Number(members_count) + 1)).toFixed(2)
     );
-    console.log(amountPerHead);
+    console.log(typeof totalAmount);
     let updateCurrentData = this.props.current_data;
     console.log(this.props.current_data);
     let newExpense = {};
     newExpense["expense_" + expensesSize] = expenseName;
     newExpense["youPaid_" + expensesSize] = totalAmount;
-    newExpense["youLent_" + expensesSize] = totalAmount - amountPerHead;
+    newExpense["youLent_" + expensesSize] = (
+      totalAmount - amountPerHead
+    ).toFixed(2);
     newExpense["onMonth"] = this.getMonth();
     newExpense["onDate"] = new Date().getDate();
     updateCurrentData.expenses.push(newExpense);
@@ -46,7 +48,10 @@ class AddExpense extends Component {
     }
     //console.log(updateCurrentData.friends_name);
 
-    updateCurrentData.owed += totalAmount - amountPerHead;
+    updateCurrentData.owed = Number(
+      Number(updateCurrentData.owed) +
+        Number((totalAmount - amountPerHead).toFixed(2))
+    );
 
     this.setState({ current_data: updateCurrentData });
     AddGroup.setAddExpense(this.props.current_data, () =>

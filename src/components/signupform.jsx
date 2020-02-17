@@ -11,7 +11,8 @@ class SignUpForm extends Component {
     nameError: "",
     emailError: "",
     phoneError: "",
-    passwordError: ""
+    passwordError: "",
+    groups: []
   };
 
   onNameChange = e => {
