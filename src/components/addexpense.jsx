@@ -53,7 +53,7 @@ class AddExpense extends Component {
         Number((totalAmount - amountPerHead).toFixed(2))
     );
 
-    this.setState({ current_data: updateCurrentData });
+    //this.setState({ current_data: updateCurrentData });
     AddGroup.setAddExpense(this.props.current_data, () =>
       alert("Expense Added!")
     );

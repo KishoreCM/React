@@ -12,6 +12,7 @@ class Auth {
   logout() {
     //this.authenticated = false;
     sessionStorage.removeItem("LoggedInUser");
+    sessionStorage.removeItem("current_grp_switch");
     //callback();
   }
 

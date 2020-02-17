@@ -73,7 +73,9 @@ class AddGroup {
   getCurrentGrpSwitch() {
     this.initVariables();
     let groupsData = JSON.parse(this.currentUserGrpData);
-    //if (groupsData === null) return false;
+    if (groupsData[0] === undefined) {
+      return false;
+    }
     let currentGrpName = sessionStorage.getItem("current_grp_switch");
     if (currentGrpName) {
       let grp = groupsData.filter(g => g.group_name === currentGrpName);
