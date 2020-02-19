@@ -31,8 +31,8 @@ class AddExpense extends Component {
     let amountPerHead = Number(
       (Number(totalAmount) / (Number(members_count) + 1)).toFixed(2)
     );
-    console.log(typeof totalAmount);
-    let updateCurrentData = this.props.current_data;
+
+    let updateCurrentData = JSON.parse(JSON.stringify(this.props.current_data));
     console.log(this.props.current_data);
     let newExpense = {};
     newExpense["expense_" + expensesSize] = expenseName;
@@ -44,7 +44,11 @@ class AddExpense extends Component {
     newExpense["onDate"] = new Date().getDate();
     updateCurrentData.expenses.push(newExpense);
     for (var i = 0; i < updateCurrentData.friends_name.length; i++) {
-      updateCurrentData.friends_name[i]["owes_" + i] += amountPerHead;
+      updateCurrentData.friends_name[i]["owes_" + i] = Number(
+        (
+          updateCurrentData.friends_name[i]["owes_" + i] + amountPerHead
+        ).toFixed(2)
+      );
     }
     //console.log(updateCurrentData.friends_name);
 
@@ -56,9 +60,7 @@ class AddExpense extends Component {
     );
 
     //this.setState({ current_data: updateCurrentData });
-    AddGroup.setAddExpense(this.props.current_data, () =>
-      alert("Expense Added!")
-    );
+    AddGroup.setAddExpense(updateCurrentData, () => alert("Expense Added!"));
 
     this.refs.description.value = "";
     this.refs.amount.value = "";
@@ -118,7 +120,7 @@ class AddExpense extends Component {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.addExpense}>Save</Button>
+          <Button onClick={this.addExpense}>Add</Button>
         </Modal.Footer>
       </Modal>
     );

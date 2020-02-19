@@ -144,6 +144,34 @@ class AddGroup {
 
     callback();
   }
+
+  updateGrpFrndData(currentGrpData, callback) {
+    this.initVariables();
+
+    let currentUserGrpDataParsed = JSON.parse(this.currentUserGrpData);
+
+    for (let i = 0; i < currentUserGrpDataParsed.length; i++) {
+      if (
+        currentGrpData.group_name === currentUserGrpDataParsed[i].group_name
+      ) {
+        currentUserGrpDataParsed[i].members_count =
+          currentGrpData.members_count;
+        currentUserGrpDataParsed[i].friends_name = currentGrpData.friends_name;
+        break;
+      }
+    }
+
+    this.getCurrentUserData[0].groups = currentUserGrpDataParsed;
+
+    for (let i = 0; i < this.users.length; i++) {
+      if (this.users[i].email === this.loggedInUser) {
+        this.users[i] = this.getCurrentUserData[0];
+        localStorage.setItem("signedInUsers", JSON.stringify(this.users));
+        break;
+      }
+    }
+    callback();
+  }
 }
 
 export default new AddGroup();

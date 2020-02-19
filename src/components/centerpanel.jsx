@@ -5,12 +5,14 @@ import AddExpense from "./addexpense";
 //import Settleup from "./settleup";
 import AddGroup from "../addgroupcontroller";
 import ExpenseList from "./expenselist";
+import AddFriends from "./addfriends";
 import { Redirect } from "react-router-dom";
 
 class CenterPanel extends Component {
   state = {
     showAddExpenseModal: false,
     showSettleupModal: false,
+    showAddFrndsModal: false,
     group_data: JSON.parse(AddGroup.getGroups()),
     current_group_data: AddGroup.getCurrentGrpSwitch()
   };
@@ -21,6 +23,10 @@ class CenterPanel extends Component {
 
   setSettleupModalShow = e => {
     this.setState({ showSettleupModal: e });
+  };
+
+  setAddFrndsModalShow = e => {
+    this.setState({ showAddFrndsModal: e });
   };
 
   display_data = group_data => {
@@ -58,6 +64,7 @@ class CenterPanel extends Component {
           <LeftPanel
             group_data={this.state.group_data}
             handleClick={this.display_data}
+            setAddFrndsModalShow={this.setAddFrndsModalShow}
           />
           <RightPanel current_group_data={this.state.current_group_data} />
           <div id="centercolumn">
@@ -105,6 +112,11 @@ class CenterPanel extends Component {
           show={this.state.showAddExpenseModal}
           onHide={() => this.setAddExpenseModalShow(false)}
           group_name={this.state.current_group_data.group_name}
+          current_data={this.state.current_group_data}
+        />
+        <AddFriends
+          show={this.state.showAddFrndsModal}
+          onHide={() => this.setAddFrndsModalShow(false)}
           current_data={this.state.current_group_data}
         />
         {/*<Settleup

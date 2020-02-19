@@ -11,10 +11,12 @@ class ExpenseList extends Component {
     let grpFriends = grpExpense.friends_name;
     let memCount = grpExpense.members_count;
     totalOwed -= lent;
-    let perLent = (lent / memCount).toFixed(2);
+    let perLent = Number((lent / memCount).toFixed(2));
 
     for (let i = 0; i < grpFriends.length; i++) {
-      grpFriends[i]["owes_" + i] -= perLent;
+      grpFriends[i]["owes_" + i] = Number(
+        (grpFriends[i]["owes_" + i] - perLent).toFixed(2)
+      );
     }
 
     AddGroup.deleteGrpExpense(

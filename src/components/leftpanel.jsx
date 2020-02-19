@@ -58,7 +58,18 @@ class LeftPanel extends Component {
           </div>
 
           <div className="group_tags">
-            <div className="header">FRIENDS</div>
+            <div className="header">
+              FRIENDS
+              <a
+                style={{ cursor: "pointer" }}
+                id="add_group"
+                /*href="/addgroup"*/ onClick={() =>
+                  this.props.setAddFrndsModalShow(true)
+                }
+              >
+                + Add Friends
+              </a>
+            </div>
             {this.displayGrpFriends()}
           </div>
         </div>
