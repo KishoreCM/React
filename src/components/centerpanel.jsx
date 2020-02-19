@@ -17,8 +17,16 @@ class CenterPanel extends Component {
     current_group_data: AddGroup.getCurrentGrpSwitch()
   };
 
+  componentDidMount() {
+    console.log("Mounted");
+  }
+
   setAddExpenseModalShow = e => {
-    this.setState({ showAddExpenseModal: e });
+    this.setState({
+      showAddExpenseModal: e,
+      group_data: JSON.parse(AddGroup.getGroups()),
+      current_group_data: AddGroup.getCurrentGrpSwitch()
+    });
   };
 
   setSettleupModalShow = e => {
@@ -26,7 +34,11 @@ class CenterPanel extends Component {
   };
 
   setAddFrndsModalShow = e => {
-    this.setState({ showAddFrndsModal: e });
+    this.setState({
+      showAddFrndsModal: e,
+      group_data: JSON.parse(AddGroup.getGroups()),
+      current_group_data: AddGroup.getCurrentGrpSwitch()
+    });
   };
 
   display_data = group_data => {
