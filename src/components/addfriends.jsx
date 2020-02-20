@@ -9,6 +9,7 @@ class AddFriends extends Component {
     let newFriendField = "friend_" + currentGrpData.members_count;
     let newOwesField = "owes_" + currentGrpData.members_count;
     let newFriendDetail = {};
+    newFriendDetail["from_expense"] = currentGrpData.expenses.length;
     newFriendDetail[newFriendField] = newFriendName;
     newFriendDetail[newOwesField] = 0;
     currentGrpData.friends_name.push(newFriendDetail);

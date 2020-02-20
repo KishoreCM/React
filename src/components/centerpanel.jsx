@@ -7,14 +7,17 @@ import AddGroup from "../addgroupcontroller";
 import ExpenseList from "./expenselist";
 import AddFriends from "./addfriends";
 import { Redirect } from "react-router-dom";
+import FriendOwesDetails from "./friendowesdetails";
 
 class CenterPanel extends Component {
   state = {
     showAddExpenseModal: false,
     showSettleupModal: false,
     showAddFrndsModal: false,
+    showFrndOwesModal: false,
     group_data: JSON.parse(AddGroup.getGroups()),
-    current_group_data: AddGroup.getCurrentGrpSwitch()
+    current_group_data: AddGroup.getCurrentGrpSwitch(),
+    friendOwesToGrps: {}
   };
 
   componentDidMount() {
@@ -36,6 +39,14 @@ class CenterPanel extends Component {
   setAddFrndsModalShow = e => {
     this.setState({
       showAddFrndsModal: e,
+      group_data: JSON.parse(AddGroup.getGroups()),
+      current_group_data: AddGroup.getCurrentGrpSwitch()
+    });
+  };
+
+  setFrndOwesModalShow = e => {
+    this.setState({
+      showFrndOwesModal: e,
       group_data: JSON.parse(AddGroup.getGroups()),
       current_group_data: AddGroup.getCurrentGrpSwitch()
     });
@@ -64,6 +75,12 @@ class CenterPanel extends Component {
     return expenseList;
   };
 
+  displayFrndDetails = frndData => {
+    this.setFrndOwesModalShow(true);
+    console.log(frndData);
+    this.setState({ friendOwesToGrps: frndData });
+  };
+
   render() {
     if (!AddGroup.getCurrentGrpSwitch()) {
       alert("You haven't created any group yet...");
@@ -77,6 +94,7 @@ class CenterPanel extends Component {
             group_data={this.state.group_data}
             handleClick={this.display_data}
             setAddFrndsModalShow={this.setAddFrndsModalShow}
+            displayFrndDetails={this.displayFrndDetails}
           />
           <RightPanel current_group_data={this.state.current_group_data} />
           <div id="centercolumn">
@@ -131,6 +149,13 @@ class CenterPanel extends Component {
           onHide={() => this.setAddFrndsModalShow(false)}
           current_data={this.state.current_group_data}
         />
+        <FriendOwesDetails
+          show={this.state.showFrndOwesModal}
+          onHide={() => this.setFrndOwesModalShow(false)}
+          group_data={this.state.group_data}
+          owes_to_grps={this.state.friendOwesToGrps}
+        />
+
         {/*<Settleup
           show={this.state.showSettleupModal}
           onHide={() => this.setSettleupModalShow(false)}

@@ -35,6 +35,8 @@ class AddExpense extends Component {
     let updateCurrentData = JSON.parse(JSON.stringify(this.props.current_data));
     console.log(this.props.current_data);
     let newExpense = {};
+    newExpense["id"] = !expensesSize ? 0 : expenses[expensesSize - 1]["id"] + 1;
+    newExpense["members_count"] = members_count;
     newExpense["expense_" + expensesSize] = expenseName;
     newExpense["youPaid_" + expensesSize] = totalAmount;
     newExpense["youLent_" + expensesSize] = (
@@ -49,6 +51,9 @@ class AddExpense extends Component {
           updateCurrentData.friends_name[i]["owes_" + i] + amountPerHead
         ).toFixed(2)
       );
+      if (!expensesSize) {
+        updateCurrentData.friends_name[i]["from_expense"] = expensesSize;
+      }
     }
     //console.log(updateCurrentData.friends_name);
 
@@ -128,117 +133,3 @@ class AddExpense extends Component {
 }
 
 export default AddExpense;
-
-//import "../modal.css";
-/*
-class AddExpense extends Component {
-  state = {};
-
-  toggleModal = e => {
-    let modal = this.modalElement;
-    if (modal.style.display === "none") modal.style.display = "block";
-    else modal.style.display = "none";
-  };
-
-  render() {
-    return (
-      <div>
-        <button onClick={e => this.toggleModal()}>button</button>
-
-        <div
-          ref={modal => (this.modalElement = modal)}
-          className="modal"
-          id="postModal"
-          style={{ display: "none" }}
-        >
-          <div className="popup">
-            <h2>Add New Movie</h2>
-            <button
-              ref={modalClose => (this.modalCloseElement = modalClose)}
-              id="closeButton"
-              onClick={e => this.toggleModal(e)}
-              className="close"
-              style={{ height: "5vh" }}
-            >
-              &times;
-            </button>
-            <div className="content">
-              <input
-                type="text"
-                placeholder="Movie Name"
-                className="inputs"
-                name="movieName"
-                value={this.state.movieName}
-                onChange={e => this.change(e)}
-                style={{ height: "4vh" }}
-              ></input>
-              <br />
-              <br />
-              <input
-                type="text"
-                placeholder="Movie Description"
-                className="inputs"
-                name="movieDesc"
-                value={this.state.movieDesc}
-                onChange={e => this.change(e)}
-              ></input>
-              <br />
-              <br />
-              <input
-                type="text"
-                placeholder="Cast"
-                className="inputs"
-                name="movieCast"
-                value={this.state.movieCast}
-                onChange={e => this.change(e)}
-                style={{ height: "4vh" }}
-              ></input>
-              <br />
-              <br />
-              <input
-                type="text"
-                placeholder="Director"
-                className="inputs"
-                name="movieDirector"
-                value={this.state.movieDirector}
-                onChange={e => this.change(e)}
-                style={{ height: "4vh" }}
-              ></input>
-              <br />
-              <br />
-              <input
-                type="text"
-                placeholder="Rating (on a scale of 5)"
-                className="inputs"
-                name="movieRating"
-                value={this.state.movieRating}
-                onChange={e => this.change(e)}
-                style={{ height: "4vh" }}
-              ></input>
-              <br />
-              <br />
-              <br />
-              <label style={{ color: "black" }}>
-                Upload Image ---> &nbsp;&nbsp;
-              </label>
-              <input
-                style={{ width: "60%", color: "black" }}
-                type="file"
-                name="movieImage"
-                onChange={e => this.imageUpload(e)}
-              ></input>
-              <br />
-              <br />
-              <button onClick={e => this.addMovie(e)} id="modalPostButton">
-                Add Movie
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default AddExpense;
-*/

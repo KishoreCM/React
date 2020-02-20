@@ -43,6 +43,7 @@ class AddGroup extends Component {
     let friend_details = {};
 
     for (let i = 0; i < this.state.members_count; i++) {
+      friend_details["from_expense"] = 0;
       friend_details["friend_" + i] = document.getElementById(i).value;
       friend_details["owes_" + i] = 0;
       friends.push(friend_details);

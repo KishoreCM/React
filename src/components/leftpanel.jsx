@@ -61,7 +61,12 @@ class LeftPanel extends Component {
     let belongsToGrps = this.mapSimilarGrpMembers();
 
     if (belongsToGrps[0]) {
-      return <FriendTags grpFriends={belongsToGrps} />;
+      return (
+        <FriendTags
+          grpFriends={belongsToGrps}
+          handleClick={this.props.displayFrndDetails}
+        />
+      );
     }
   };
 

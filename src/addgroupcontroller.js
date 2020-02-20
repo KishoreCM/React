@@ -116,6 +116,8 @@ class AddGroup {
         let exp = {};
         while (idxI < uptExpLen) {
           if (updatedExpenses[idxI]["expense_" + idxJ] !== undefined) {
+            exp["id"] = updatedExpenses[idxI]["id"];
+            exp["members_count"] = updatedExpenses[idxI]["members_count"];
             exp["expense_" + idxI] = updatedExpenses[idxI]["expense_" + idxJ];
             exp["youPaid_" + idxI] = updatedExpenses[idxI]["youPaid_" + idxJ];
             exp["youLent_" + idxI] = updatedExpenses[idxI]["youLent_" + idxJ];

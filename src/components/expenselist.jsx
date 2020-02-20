@@ -9,14 +9,22 @@ class ExpenseList extends Component {
     let lent = currentExpense["youLent_" + this.props.id];
     let totalOwed = grpExpense.owed;
     let grpFriends = grpExpense.friends_name;
-    let memCount = grpExpense.members_count;
+    let memCount = currentExpense["members_count"]; //grpExpense.members_count;
+    let expenseId = currentExpense["id"];
     totalOwed -= lent;
     let perLent = Number((lent / memCount).toFixed(2));
 
     for (let i = 0; i < grpFriends.length; i++) {
-      grpFriends[i]["owes_" + i] = Number(
-        (grpFriends[i]["owes_" + i] - perLent).toFixed(2)
-      );
+      if (expenseId >= grpFriends[i]["from_expense"]) {
+        if (grpFriends[i]["owes_" + i] > 0) {
+          grpFriends[i]["owes_" + i] = Number(
+            (grpFriends[i]["owes_" + i] - perLent).toFixed(2)
+          );
+          if (grpFriends[i]["owes_" + i] <= 0) {
+            grpFriends[i]["owes_" + i] = 0;
+          }
+        }
+      }
     }
 
     AddGroup.deleteGrpExpense(
