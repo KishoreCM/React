@@ -5,7 +5,7 @@ class FriendName extends Component {
     return (
       <div>
         <a /*href="www.splitwise.com"*/ className="group_name">
-          <i className="fa fa-user"></i> {this.props.current_grp_frnds}
+          <i className="fa fa-user"></i> {this.props.name}
         </a>
       </div>
     );
@@ -17,10 +17,7 @@ class FriendTags extends Component {
     let friendsName = [];
     for (let i = 0; i < this.props.grpFriends.length; i++) {
       friendsName.push(
-        <FriendName
-          key={i}
-          current_grp_frnds={this.props.grpFriends[i]["friend_" + i]}
-        />
+        <FriendName key={i} name={this.props.grpFriends[i].name} />
       );
     }
     return friendsName;

@@ -23,23 +23,47 @@ class LeftPanel extends Component {
     return groupTags;
   }
 
-  displayGrpFriends() {
-    //let groups = JSON.parse(AddGroup.getGroups());
-    let grpFriends = [];
-    if (this.props.group_data) {
-      for (var i = 0; i < this.props.group_data.length; i++) {
-        grpFriends.push(
-          <FriendTags
-            key={i}
-            id={i}
-            grpFriends={this.props.group_data[i].friends_name}
-          />
-        );
+  mapSimilarGrpMembers = () => {
+    let belongsToGrps = [];
+    for (let i = 0; i < this.props.group_data.length; i++) {
+      for (let j = 0; j < this.props.group_data[i].friends_name.length; j++) {
+        if (
+          !belongsToGrps.some(
+            user =>
+              user.name ===
+              this.props.group_data[i].friends_name[j]["friend_" + j]
+          )
+        ) {
+          belongsToGrps.push({
+            name: this.props.group_data[i].friends_name[j]["friend_" + j],
+            belongsTo: new Array(this.props.group_data[i].group_name)
+          });
+        } else {
+          for (let k = 0; k < belongsToGrps.length; k++) {
+            if (
+              belongsToGrps[k].name ===
+              this.props.group_data[i].friends_name[j]["friend_" + j]
+            ) {
+              belongsToGrps[k].belongsTo.push(
+                this.props.group_data[i].group_name
+              );
+              break;
+            }
+          }
+        }
       }
     }
+    console.log(belongsToGrps);
+    return belongsToGrps;
+  };
 
-    return grpFriends;
-  }
+  displayGrpFriends = () => {
+    let belongsToGrps = this.mapSimilarGrpMembers();
+
+    if (belongsToGrps[0]) {
+      return <FriendTags grpFriends={belongsToGrps} />;
+    }
+  };
 
   render() {
     return (
